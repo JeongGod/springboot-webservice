@@ -1,5 +1,6 @@
 package com.jeong.book.springboot.domain.posts;
 
+import com.jeong.book.springboot.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,7 +42,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Posts {
+public class Posts extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -59,6 +60,19 @@ public class Posts {
         this.title = title;
         this.content = content;
         this.author = author;
+    }
+    /**
+     * 데이터베이스에 쿼리를 날리지 않고 바로 가능하다.
+     * 그 이유는 JPA의 영속성 컨텍스트때문이다.
+     * 양속성 컨텍스트란, 엔티티를 영구 저장하는 환경이다.
+     * JPA의 핵심 내용은 엔티티가 영속성 컨텍스트에 포함되어 있냐 아니냐로 갈린다.
+     * JPA의 엔티티 매니저가 활성화된 상태로 트랜잭션 안에서 데이터베이스에서 데이터를 가져오면 이 데이터는 영속성 컨텍스트가 유지된 상태
+     * 값을 변경하면 트랜잭션이 끝나는 시점에 해당 테이블에 변경분을 반영합니다.
+     * Update쿼리를 날릴 필요가 없다는 뜻이다. => 더티 체킹이라고 한다.
+     */
+    public void update(String title, String content){
+        this.title = title;
+        this.content = content;
     }
 
 }
