@@ -31,4 +31,6 @@ dependencies {
     // 인메모리 관계형 데이터베이스, 애플리케이션을 재시작할 때마다 초기화 => 테스트 용도로 사용
     implementation('com.h2database:h2')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
+    // 머스테치 스타터 의존성을 등록한다
+    implementation('org.springframework.boot:spring-boot-starter-mustache')
 }
