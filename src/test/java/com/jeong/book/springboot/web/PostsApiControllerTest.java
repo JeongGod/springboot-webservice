@@ -95,7 +95,7 @@ public class PostsApiControllerTest {
     }
 
     @Test
-    public void Posts_삭제된다() {
+    public void Posts_삭제된다() throws Exception {
         Posts posts = postsRepository.save(Posts.builder()
                 .title("title")
                 .author("author")
