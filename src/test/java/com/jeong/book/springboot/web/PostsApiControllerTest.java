@@ -113,7 +113,7 @@ public class PostsApiControllerTest {
 
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(responseEntity.getBody()).isEqualTo(1L);
+        assertThat(responseEntity.getBody()).isEqualTo(deleteId);
 
     }
 }
