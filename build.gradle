@@ -41,4 +41,6 @@ dependencies {
     implementation('org.springframework.session:spring-session-jdbc')
     // Spring Security Test 설정
     implementation('org.springframework.security:spring-security-test')
+    // MariaDB Driver 설정
+    implementation('org.mariadb.jdbc:mariadb-java-client')
 }
