@@ -5,7 +5,6 @@ import com.jeong.book.springboot.domain.posts.Posts;
 import com.jeong.book.springboot.domain.posts.PostsRepository;
 import com.jeong.book.springboot.web.dto.PostsSaveRequestDto;
 import com.jeong.book.springboot.web.dto.PostsUpdateRequestDto;
-import javafx.geometry.Pos;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
