@@ -31,10 +31,11 @@ deploy:
     skip_cleanup: true
     acl: private # zip 파일 접근을 private로
     local_dir: deploy # before_deploy에서 생성한 디렉토리
-    wait-until-deployed: true
     # travis에서 master 브랜치가 default로 설정이 되어있다. main 브랜치도 가능하게 설정한다.
     on:
       all_branches: true
+    wait-until-deployed: true
+
 
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
@@ -45,10 +46,11 @@ deploy:
     application: freelec-springboot2-webservice # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
     deployment_group: freelec-springboot2-webservice-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
     region: ap-northeast-2
-    wait-until-deployed: true
     # travis에서 master 브랜치가 default로 설정이 되어있다. main 브랜치도 가능하게 설정한다.
     on:
       all_branches: true
+    wait-until-deployed: true
+
 # CI 실행 완료시 메일로 알람
 notifications:
   email:
