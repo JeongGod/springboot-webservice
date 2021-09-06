@@ -20,19 +20,29 @@ script: "./gradlew clean build"
 before_deploy:
   - zip -r springboot-webservice *
   - mkdir -p deploy
-  - mv springboot-webservice.zip delploy/springboot-webservice.zip
+  - mv springboot-webservice.zip deploy/springboot-webservice.zip
 
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECERT_KEY
     bucket: freelec-springboot-build-jeong
-    region: ap-northest-2
+    region: ap-northeast-2
     skip_cleanup: true
-    acl: private
-    local_dir: deploy
+    acl: private # zip 파일 접근을 private로
+    local_dir: deploy # before_deploy에서 생성한 디렉토리
     wait-until-deployed: true
 
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: freelec-springboot-build-jeong
+    key: springboot-webservice.zip
+    bundle_type: zip
+    application: freelec-springboot2-webservice # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
+    deployment_group: freelec-springboot2-webservice-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
+    region: ap-northeast-2
+    wait-until-deployed: true
 # CI 실행 완료시 메일로 알람
 notifications:
   email:

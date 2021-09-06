@@ -1,0 +1,11 @@
+# code deploy version
+version: 0.0
+os: linux
+files:
+  # code deploy에서 전달해 준 파일 중 destination으로 이동시킬 대상을 지정합니다.
+  # 루트 경로(/)를 지정하면 전체 파일을 이야기합니다.
+  - source:
+      # source에서 지정된 파일을 받을 위치
+      destination: /home/ec2-user/app/step2/zip/
+      # 기존에 파일들이 있으면 덮었쓸지 결정
+      overwrite: yes
