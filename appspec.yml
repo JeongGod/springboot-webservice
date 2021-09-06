@@ -6,6 +6,21 @@ files:
   # 루트 경로(/)를 지정하면 전체 파일을 이야기합니다.
   - source: /
     # source에서 지정된 파일을 받을 위치
-    destination: /home/ec2-user/app/step2/zip
+    destination: /home/ec2-user/app/step2/zip/
     # 기존에 파일들이 있으면 덮었쓸지 결정
     overwrite: yes
+
+# CodeDeploy에서 EC2 서버로 넘겨준 파일들을 모두 ec2-user 권한을 갖도록 한다.
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ec2-user
+    group: ec2-user
+
+# CodeDeploy 배포 단계에서 실행할 명령어를 지정한다.
+# ec2-user권한으로 deploy.sh를 실행하게 된다.
+hooks:
+  ApplicationStart:
+    - location: deploy.sh
+      timeout: 60
+      runas: ec2-user
