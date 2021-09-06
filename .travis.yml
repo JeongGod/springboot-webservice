@@ -25,7 +25,7 @@ before_deploy:
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
-    secret_access_key: $AWS_SECERT_KEY
+    secret_access_key: $AWS_SECRET_KEY
     bucket: freelec-springboot-build-jeong
     region: ap-northeast-2
     skip_cleanup: true
