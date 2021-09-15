@@ -1,3 +1,9 @@
+# stop.sh     : 기존 엔진엑스에 연결되어 있진 않지만, 실행 중이던 스프링 부트를 종료한다.
+# start.sh    : 배포할 신규 버전 스프링 부트 프로젝트를 'stop.sh'로 종료한 'profile'로 실행
+# health.sh   : 'start.sh'로 실행시킨 프로젝트가 정상적으로 실행됐는지 체크
+# switch.sh   : 엔진엑스가 바라보는 스프링 부트를 최신 버전으로 변경
+# profile.sh  : 앞선 4개 스크립트 파일에서 공용으로 사용할 'profile'과 포트 체크 로직
+
 # code deploy version
 version: 0.0
 os: linux
@@ -6,7 +12,7 @@ files:
   # 루트 경로(/)를 지정하면 전체 파일을 이야기합니다.
   - source: /
     # source에서 지정된 파일을 받을 위치
-    destination: /home/ec2-user/app/step2/zip/
+    destination: /home/ec2-user/app/step3/zip/
     # 기존에 파일들이 있으면 덮었쓸지 결정
     overwrite: yes
 
@@ -20,7 +26,17 @@ permissions:
 # CodeDeploy 배포 단계에서 실행할 명령어를 지정한다.
 # ec2-user권한으로 deploy.sh를 실행하게 된다.
 hooks:
+  AfterInstall:
+    - location: stop.sh
+      timeout: 60
+      runas: ec2-user
+
   ApplicationStart:
-    - location: deploy.sh
+    - location: start.sh
+      timeout: 60
+      runas: ec2-user
+
+  ValidateService:
+    - location: health.sh
       timeout: 60
       runas: ec2-user
